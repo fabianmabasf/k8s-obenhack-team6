@@ -43,7 +43,7 @@ docker tag tripinsights/poi:1.0 registrywos0810.azurecr.io/tripinsights/poi:1.0
 docker push registrywos0810.azurecr.io/tripinsights/poi:1.0
 
 
-# Challange 2
+# Challenge 2
  
 ## Create AKS Cluster with default config
 az aks create --resource-group teamResources --name OpenHackAKSCluster --node-count 1 --enable-addons monitoring --generate-ssh-keys
@@ -54,3 +54,6 @@ az aks get-credentials --resource-group teamResources --name OpenHackAKSCluster
 ## Create YAML File from existing Images
 kubectl run nginx --image=registrywos0810.azurecr.io/tripinsights/userprofile:1.0 --dry-run=client -o yaml > userprofile.yaml
 kubectl run nginx --image=registrywos0810.azurecr.io/tripinsights/tripviewer:1.0 --dry-run=client -o yaml > tripviewer.yaml
+
+
+# Challenge 3
