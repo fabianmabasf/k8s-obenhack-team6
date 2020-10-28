@@ -43,37 +43,37 @@ apiVersion: rbac.authorization.k8s.io/v1
 # You need to already have a ClusterRole named "edit".
 kind: RoleBinding
 metadata:
-    name: edit-web-dev
-    #
-    # The namespace of the RoleBinding determines where the permissions are granted.
-    # This only grants permissions within the "web-dev" namespace.
-    namespace: web-dev
+  name: edit-web-dev
+  #
+  # The namespace of the RoleBinding determines where the permissions are granted.
+  # This only grants permissions within the "web-dev" namespace.
+  namespace: web-dev
 subjects:
 - kind: Group
-    name: ae7aba45-5ae5-4867-a3cf-35e9e4cda6f9
-    apiGroup: rbac.authorization.k8s.io
-    namespace: web-dev
+  name: ae7aba45-5ae5-4867-a3cf-35e9e4cda6f9
+  apiGroup: rbac.authorization.k8s.io
+  namespace: web-dev
 roleRef:
-    kind: ClusterRole
-    name: edit
-    apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows AAD Group "api-dev" to read the "web-dev" namespace.
 # You need to already have a ClusterRole named "reader".
 kind: RoleBinding
 metadata:
-    name: read-web-dev
-    #
-    # The namespace of the RoleBinding determines where the permissions are granted.
-    # This only grants permissions within the "web-dev" namespace.
-    namespace: web-dev
+  name: read-web-dev
+  #
+  # The namespace of the RoleBinding determines where the permissions are granted.
+  # This only grants permissions within the "web-dev" namespace.
+  namespace: web-dev
 subjects:
 - kind: Group
-    name: 30eb4b25-085d-4aed-a85b-36c824f6e555
-    apiGroup: rbac.authorization.k8s.io
-    namespace: web-dev
+  name: 30eb4b25-085d-4aed-a85b-36c824f6e555
+  apiGroup: rbac.authorization.k8s.io
+  namespace: web-dev
 roleRef:
-    kind: ClusterRole
-    name: view
-    apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
