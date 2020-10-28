@@ -12,6 +12,7 @@ subjects:
 - kind: Group
   name: 30eb4b25-085d-4aed-a85b-36c824f6e555
   apiGroup: rbac.authorization.k8s.io
+  namespace: api-dev
 roleRef:
   kind: ClusterRole
   name: edit
@@ -31,6 +32,7 @@ subjects:
 - kind: Group
   name: ae7aba45-5ae5-4867-a3cf-35e9e4cda6f9
   apiGroup: rbac.authorization.k8s.io
+  namespace: api-dev
 roleRef:
   kind: ClusterRole
   name: view
@@ -50,6 +52,7 @@ subjects:
 - kind: Group
     name: ae7aba45-5ae5-4867-a3cf-35e9e4cda6f9
     apiGroup: rbac.authorization.k8s.io
+    namespace: web-dev
 roleRef:
     kind: ClusterRole
     name: edit
@@ -69,6 +72,7 @@ subjects:
 - kind: Group
     name: 30eb4b25-085d-4aed-a85b-36c824f6e555
     apiGroup: rbac.authorization.k8s.io
+    namespace: web-dev
 roleRef:
     kind: ClusterRole
     name: view
