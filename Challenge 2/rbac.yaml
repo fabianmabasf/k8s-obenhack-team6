@@ -1,57 +1,37 @@
-#web-dev user (View access for API resources, Edit access for Web resources).
-#api-dev user (View access to Web resources, Edit access to API resources)
-kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: web-dev-access
-  namespace: web-dev
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: edit
-subjects:
-- kind: Group
-  namespace: web-dev
-  name: ae7aba45-5ae5-4867-a3cf-35e9e4cda6f9
----
+# This role binding allows AAD Group "api-dev" to edit the "api-dev" namespace.
+# You need to already have a ClusterRole named "edit".
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: web-dev-access
+  name: edit-api-dev
+  #
+  # The namespace of the RoleBinding determines where the permissions are granted.
+  # This only grants permissions within the "development" namespace.
   namespace: api-dev
-roleRef:
+subjects:
+- kind: Group
+  name: 30eb4b25-085d-4aed-a85b-36c824f6e555
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: view
+roleRef:
+  kind: ClusterRole
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows AAD Group "web-dev" to read the "api-dev" namespace.
+# You need to already have a ClusterRole named "reader".
+kind: RoleBinding
+metadata:
+  name: read-api-dev
+  #
+  # The namespace of the RoleBinding determines where the permissions are granted.
+  # This only grants permissions within the "development" namespace.
+  namespace: api-dev
 subjects:
 - kind: Group
-  namespace: web-dev
   name: ae7aba45-5ae5-4867-a3cf-35e9e4cda6f9
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-    name: api-dev-access
-    namespace: api-dev
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: Role
-    name: edit
-subjects:
-- kind: Group
-    namespace: api-dev
-    name: 30eb4b25-085d-4aed-a85b-36c824f6e555
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-    name: api-dev-access
-    namespace: web-dev
-roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: Role
-    name: view
-subjects:
-- kind: Group
-    namespace: api-dev
-    name: 30eb4b25-085d-4aed-a85b-36c824f6e555
+  kind: ClusterRole
+  name: reader
+  apiGroup: rbac.authorization.k8s.io
