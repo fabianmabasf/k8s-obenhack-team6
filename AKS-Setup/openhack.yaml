@@ -78,17 +78,21 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: SQL_USER
-          value: sqladminwOs0810
-        - name: SQL_PASSWORD
-          value: xE5si4Ll7
-        - name: SQL_SERVER
-          value: sqlserverwos0810.database.windows.net
-        - name: SQL_DBNAME
-          value: mydrivingDB
         - name: ASPNETCORE_ENVIRONMENT
           value: Production
-          
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/secrets"
+          readOnly: true        
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: openhackteam6vault
+            nodePublishSecretRef:           # Only required when using service principal mode
+              name: secrets-store-creds     # Only required when using service principal mode
 ---
 apiVersion: v1
 kind: Service
@@ -123,15 +127,19 @@ spec:
         image: registrywos0810.azurecr.io/tripinsights/trips:1.0
         ports:
         - containerPort: 80
-        env:
-        - name: SQL_USER
-          value: sqladminwOs0810
-        - name: SQL_PASSWORD
-          value: xE5si4Ll7
-        - name: SQL_SERVER
-          value: sqlserverwos0810.database.windows.net
-        - name: SQL_DBNAME
-          value: mydrivingDB
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/secrets"
+          readOnly: true        
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: openhackteam6vault
+            nodePublishSecretRef:           # Only required when using service principal mode
+              name: secrets-store-creds     # Only required when using service principal mode
 ---
 apiVersion: v1
 kind: Service
@@ -166,15 +174,19 @@ spec:
         image: registrywos0810.azurecr.io/tripinsights/userprofile:1.0
         ports:
         - containerPort: 80
-        env:
-        - name: SQL_USER
-          value: sqladminwOs0810
-        - name: SQL_PASSWORD
-          value: xE5si4Ll7
-        - name: SQL_SERVER
-          value: sqlserverwos0810.database.windows.net
-        - name: SQL_DBNAME
-          value: mydrivingDB
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/secrets"
+          readOnly: true        
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: openhackteam6vault
+            nodePublishSecretRef:           # Only required when using service principal mode
+              name: secrets-store-creds     # Only required when using service principal mode
 ---
 apiVersion: v1
 kind: Service
