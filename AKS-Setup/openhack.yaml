@@ -30,6 +30,10 @@ spec:
         image: registrywos0810.azurecr.io/tripinsights/user-java:1.0
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: secrets-store-inline
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
         env:
         - name: SQL_USER
           value: sqladminwOs0810
@@ -39,6 +43,15 @@ spec:
           value: sqlserverwos0810.database.windows.net
         - name: SQL_DBNAME
           value: mydrivingDB
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: openhackteam6vault
+            nodePublishSecretRef:           # Only required when using service principal mode
+              name: secrets-store-creds     # Only required when using service principal mode
 ---
 apiVersion: v1
 kind: Service
