@@ -32,17 +32,8 @@ spec:
         - containerPort: 80
         volumeMounts:
           - name: secrets-store-inline
-            mountPath: "/mnt/secrets-store"
-            readOnly: true
-        env:
-        - name: SQL_USER
-          value: sqladminwOs0810
-        - name: SQL_PASSWORD
-          value: xE5si4Ll7
-        - name: SQL_SERVER
-          value: sqlserverwos0810.database.windows.net
-        - name: SQL_DBNAME
-          value: mydrivingDB
+            mountPath: "/secrets"
+            readOnly: true        
       volumes:
         - name: secrets-store-inline
           csi:
