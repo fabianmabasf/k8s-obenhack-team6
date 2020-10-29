@@ -14,3 +14,7 @@ az role assignment create --role Reader --assignee "540fadb6-2ffb-460b-ae51-6458
 az keyvault show --name OpenHackTeam6Vault
 
 az keyvault secret list --vault-name "OpenHackTeam6Vault"
+
+az aks get-credentials --resource-group Challenge3 --name OpenHackProdCluster
+
+kubectl create secret generic secrets-store-creds --from-literal clientid="540fadb6-2ffb-460b-ae51-6458a852c400" --from-literal clientsecret="SAP5ev.5d8m99B.1na6~Wd6-INKZrHFPQi" --namespace api-dev
