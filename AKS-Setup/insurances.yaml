@@ -12,9 +12,9 @@ spec:
     limits:
     - default:
         memory: 2Gi
-    defaultRequest:
+      defaultRequest:
         memory: 256Mi
-    type: Container
+      type: Container
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -51,7 +51,7 @@ metadata:
   name: insurance
   namespace: insurance
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: insurance
   ports:
@@ -59,4 +59,3 @@ spec:
       name: insurance-http
       port: 80
       targetPort: 8081
-  type: LoadBalancer
