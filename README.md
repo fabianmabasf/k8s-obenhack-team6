@@ -57,3 +57,13 @@ kubectl run nginx --image=registrywos0810.azurecr.io/tripinsights/tripviewer:1.0
 
 
 # Challenge 3
+az group create --name Challenge3 --location northeurope
+ 
+az aks create --resource-group Challenge3 --name OpenHackProdCluster --node-count 3 --enable-addons monitoring --enable-aad --aad-admin-group-object-ids 75cc0756-bf5a-4ca2-8214-bed4e81b70dd --network-plugin azure --vnet-subnet-id "/subscriptions/aa7382d4-349f-4abe-a340-09dba4317b7b/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/aks-subnet" --docker-bridge-address 172.17.0.1/16 --dns-service-ip 10.0.0.10 --generate-ssh-keys --attach-acr registrywos0810
+ 
+ 
+# Challenge 4
+az network public-ip create --resource-group Challenge3 --name myAKSProdPublicIP --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
+
+helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-basic --set controller.replicaCount=2 --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux --set controller.service.loadBalancerIP="52.155.181.83" --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"="openhack6"
+ 
